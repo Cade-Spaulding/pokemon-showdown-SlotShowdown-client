@@ -20,4 +20,14 @@ RUN rm -rf caches/pokemon-showdown \
 RUN rm -f play.pokemonshowdown.com/config/config.js \
     && cp config/config.js play.pokemonshowdown.com/config/config.js
 
+RUN printf '%s\n' \
+    '<!doctype html>' \
+    '<html>' \
+    '<head>' \
+    '<meta http-equiv="refresh" content="0; url=/testclient-new.html">' \
+    '</head>' \
+    '<body></body>' \
+    '</html>' \
+    > play.pokemonshowdown.com/index.html
+
 CMD ["sh", "-c", "serve play.pokemonshowdown.com -l $PORT"]
