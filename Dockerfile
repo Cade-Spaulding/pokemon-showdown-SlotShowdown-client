@@ -16,7 +16,7 @@ RUN npm install -g serve
 
 RUN rm -rf caches/pokemon-showdown && node build full
 
-RUN cp play.pokemonshowdown.com/testclient-old.html \
+RUN cp play.pokemonshowdown.com/testclient-new.html \
 	play.pokemonshowdown.com/index.html
 
 RUN rm -f play.pokemonshowdown.com/config/config.js \
