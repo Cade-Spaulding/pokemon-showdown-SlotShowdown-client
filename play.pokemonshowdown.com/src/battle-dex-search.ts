@@ -1335,7 +1335,35 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 				return true;
 			});
 		}
+		// Typen is only legal/listed in the dedicated Typen format.
+const isTypenFormat = format === '[Gen 9 Champions] VGC 2026 Reg M-C + Fakemons';
 
+const typenRows: SearchRow[] = [];
+
+for (const id in BattlePokedex) {
+	const species = this.dex.species.get(id);
+
+	if (toID(species.baseSpecies) === 'typen') {
+		typenRows.push(['pokemon', id as ID]);
+	}
+}
+
+if (isTypenFormat) {
+	// Add every Typen forme to the legal Pokémon list.
+	tierSet = [
+		['header', 'Typen'],
+		...typenRows,
+		...tierSet,
+	];
+} else {
+	// Make absolutely sure Typen never appears as legal elsewhere.
+	tierSet = tierSet.filter(([type, id]) => {
+		if (type !== 'pokemon') return true;
+
+		const species = this.dex.species.get(id);
+		return toID(species.baseSpecies) !== 'typen';
+	});
+}
 		return tierSet;
 	}
 	filter(row: SearchRow, filters: string[][]) {
