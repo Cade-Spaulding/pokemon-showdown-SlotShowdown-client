@@ -708,6 +708,7 @@ class PSUser extends PSStreamModel<PSLoginState | null> {
 			this.update({ success: true });
 			return;
 		}
+		if (Config.guestAuth) { PS.send(`/trn ${name}`); this.update({success: true}); return; }
 		this.loggingIn = name;
 		this.update(null);
 		PSLoginServer.rawQuery(
