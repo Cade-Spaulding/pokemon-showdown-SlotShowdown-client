@@ -58,7 +58,7 @@ export interface PSConfig {
 	translationCachebuster?: string;
 	whitelist?: string[];
 	testclient?: boolean;
-}
+	guestAuth?: boolean;}
 export declare const Config: PSConfig;
 
 /**********************************************************************
