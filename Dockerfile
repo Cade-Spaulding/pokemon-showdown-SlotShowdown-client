@@ -16,7 +16,7 @@ RUN npm install -g serve
 
 RUN node build full
 
-RUN cp play.pokemonshowdown.com/caches/index-new.html \
+RUN cp play.pokemonshowdown.com/caches/index-old.html \
 	play.pokemonshowdown.com/index.html
 
 RUN rm -f play.pokemonshowdown.com/config/config.js \
