@@ -13,4 +13,6 @@ RUN npm install -g serve
 
 RUN node build full
 
+RUN cp play.pokemonshowdown.com/index-new.html play.pokemonshowdown.com/index.html
+
 CMD ["sh", "-c", "serve -s play.pokemonshowdown.com -l $PORT"]
