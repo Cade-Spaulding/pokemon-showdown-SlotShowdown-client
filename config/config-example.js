@@ -19,6 +19,7 @@ Config.whitelist = [
 // `defaultserver` specifies the server to use when the domain name in the
 // address bar is `Config.routes.client`.
 Config.defaultserver = { id: 'modifiedshowdown', host: 'modified-showdown.up.railway.app', port: 443, httpport: 80, altport: 80, registered: false };
+Config.guestAuth = true;
 
 Config.roomsFirstOpenScript = function () {
 };
