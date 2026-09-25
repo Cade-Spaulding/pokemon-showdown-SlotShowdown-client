@@ -14,7 +14,7 @@ COPY . .
 
 RUN npm install -g serve
 
-RUN node build full
+RUN rm -rf caches/pokemon-showdown && node build full
 
 RUN cp play.pokemonshowdown.com/caches/index-old.html \
 	play.pokemonshowdown.com/index.html
