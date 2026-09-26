@@ -14,7 +14,17 @@ COPY . .
 
 RUN npm install -g serve
 
-RUN rm -rf caches/pokemon-showdown && node build full
+# Clone YOUR custom Pokémon Showdown server repo into the exact path
+# the client build expects.
+RUN rm -rf caches/pokemon-showdown \
+	&& git clone --depth 1 \
+		https://github.com/YOURACCOUNT/YOUR-SERVER-REPO.git \
+		caches/pokemon-showdown \
+	&& node build full --no-update
+
+# Fail the deployment if Struggly did not get generated into the client.
+RUN grep -qi "struggly" play.pokemonshowdown.com/data/search-index.js \
+	|| (echo "ERROR: Struggly is missing from generated search-index.js" && exit 1)
 
 RUN cp play.pokemonshowdown.com/caches/index-old.html \
 	play.pokemonshowdown.com/index.html
