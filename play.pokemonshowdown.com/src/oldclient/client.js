@@ -285,6 +285,10 @@ function toId() {
 				app.addPopupMessage("Usernames must contain at least one letter.");
 				return;
 			}
+			if (Config.server.id === 'modifiedshowdown') {
+			    app.send('/trn ' + name);
+			    return;
+			}
 
 			if (this.get('userid') !== userid) {
 				var self = this;
@@ -341,6 +345,11 @@ function toId() {
 				 * See `finishRename` above for a list of events this can emit.
 				 */
 				this.challstr = challstr;
+				if (Config.server.id === 'modifiedshowdown') {
+			    this.loaded = true;
+			    app.topbar.updateUserbar();
+			    return;
+					}
 				var self = this;
 				$.post(this.getActionPHP(), {
 					act: 'upkeep',
