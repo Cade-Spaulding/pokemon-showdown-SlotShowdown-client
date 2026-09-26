@@ -1340,33 +1340,39 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		}// Typen should only be selectable in:
 // [Gen 9 Champions] VGC 2026 Reg M-C + Fakemons
 
-const isTypenSpecies = (id: ID) => {
+// Custom Fakemons should only be selectable in:
+// [Gen 9 Champions] VGC 2026 Reg M-C + Fakemons
+
+const isFakemonSpecies = (id: ID) => {
+	if (id === 'struggly') return true;
 	if (id === 'typen') return true;
 
 	const data = BattlePokedex[id];
+
+	// Include every Typen forme.
 	return !!data && toID(data.baseSpecies) === 'typen';
 };
 
-// Remove Typen from whatever tier list Showdown generated.
-// This guarantees it doesn't accidentally become legal elsewhere.
+// Remove our Fakemons from whatever normal Champions tier list
+// Showdown generated, so they stay illegal in every other format.
 tierSet = tierSet.filter(([type, id]) => {
 	if (type !== 'pokemon') return true;
-	return !isTypenSpecies(id as ID);
+	return !isFakemonSpecies(id as ID);
 });
 
-// Add all Typen formes back ONLY for the Fakemons format.
+// Add them back ONLY in the custom Fakemons format.
 if (this.originalFormat === 'gen9championsvgc2026regmcfakemons') {
-	const typenRows: SearchRow[] = [];
+	const fakemonRows: SearchRow[] = [];
 
 	for (const id in BattlePokedex) {
-		if (isTypenSpecies(id as ID)) {
-			typenRows.push(['pokemon', id as ID]);
+		if (isFakemonSpecies(id as ID)) {
+			fakemonRows.push(['pokemon', id as ID]);
 		}
 	}
 
 	tierSet = [
-		['header', 'Typen'],
-		...typenRows,
+		['header', 'Fakemons'],
+		...fakemonRows,
 		...tierSet,
 	];
 }
