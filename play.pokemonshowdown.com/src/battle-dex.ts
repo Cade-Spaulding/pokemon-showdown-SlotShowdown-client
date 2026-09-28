@@ -925,10 +925,10 @@ fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 		let name = species.spriteid;
 
 if (species.isNonstandard === 'Custom') {
-	spriteData.url = `fakemon-sprites/${species.id}.png`;
-	spriteData.isFrontSprite = isFront;
-	spriteData.pixelated = false;
-	return spriteData;
+    spriteData.url = `${Dex.resourcePrefix}fakemon-sprites/${species.id}.png`;
+    spriteData.isFrontSprite = isFront;
+    spriteData.pixelated = false;
+    return spriteData;
 }
 		let dir;
 		let facing;
