@@ -923,6 +923,13 @@ fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 			shiny: options.shiny,
 		};
 		let name = species.spriteid;
+
+if (species.isNonstandard === 'Custom') {
+	spriteData.url = `fakemon-sprites/${species.id}.png`;
+	spriteData.isFrontSprite = isFront;
+	spriteData.pixelated = false;
+	return spriteData;
+}
 		let dir;
 		let facing;
 		if (isFront) {
