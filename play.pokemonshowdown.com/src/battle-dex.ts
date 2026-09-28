@@ -1150,6 +1150,15 @@ if (species.isNonstandard === 'Custom') {
 			}
 		}
 		if (species.exists === false) return { spriteDir: 'sprites/gen5', spriteid: '0', x: 10, y: 5, pixelated: true };
+		if (species.isNonstandard === 'Custom') {
+	return {
+		spriteDir: 'fakemon-sprites',
+		spriteid: species.id,
+		x: 0,
+		y: 0,
+		h: 96,
+	};
+}
 		if (Dex.afdMode) {
 			return {
 				spriteid,
