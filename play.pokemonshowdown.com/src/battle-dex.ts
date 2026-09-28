@@ -478,6 +478,7 @@ export const Dex = new class implements ModdedDex {
 	pokeballs: string[] | null = null;
 
 resourcePrefix = 'https://play.pokemonshowdown.com/';
+customResourcePrefix = `https://${Config.routes.client}/`;
 fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 
 	loadedSpriteData = { xy: 1, bw: 0 };
@@ -925,7 +926,7 @@ fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 		let name = species.spriteid;
 
 if (species.isNonstandard === 'Custom') {
-    spriteData.url = `${Dex.resourcePrefix}fakemon-sprites/${species.id}.png`;
+    spriteData.url = `${Dex.customResourcePrefix}fakemon-sprites/${species.id}.png`;
     spriteData.isFrontSprite = isFront;
     spriteData.pixelated = false;
     return spriteData;
