@@ -741,9 +741,17 @@ constructor(searchType: T, format = '' as ID, speciesOrSet: ID | Dex.PokemonSet 
 			format = format.slice(7) as ID;
 			if (!format) format = 'ou' as ID;
 		}
-		if (format.includes('champions')) {
-			this.formatType = 'champions';
-			this.dex = Dex.mod('champions' as ID);
+if (format.includes('champions')) {
+    this.formatType = 'champions';
+
+    this.dex = Dex.mod(
+        (
+            this.originalFormat ===
+            'gen9championsvgc2026regmcfakemons'
+                ? 'championsfakemons'
+                : 'champions'
+        ) as ID
+    );
 			format = format.slice(9) as ID;
 			if (format.startsWith('natdex') || format.startsWith('nationaldex')) this.formatType = 'natdexchampions';
 			if (format.startsWith('natdex')) format = format.slice(6) as ID;
@@ -1022,7 +1030,12 @@ constructor(searchType: T, format = '' as ID, speciesOrSet: ID | Dex.PokemonSet 
 			this.formatType === 'svdlc1doubles' ? 'gen9dlc1doubles' :
 			this.formatType === 'natdex' ? `gen${gen}natdex` :
 			this.formatType === 'stadium' ? `gen${gen}stadium${gen > 1 ? gen : ''}` :
-			this.formatType === 'champions' ? `champions` :
+this.formatType === 'champions' ? (
+    this.originalFormat ===
+    'gen9championsvgc2026regmcfakemons'
+        ? 'championsfakemons'
+        : 'champions'
+) :
 			this.formatType === 'natdexchampions' ? `natdexchampions` :
 			`gen${gen}`;
 		if (table?.[tableKey]) {
