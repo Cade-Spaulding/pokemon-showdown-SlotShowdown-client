@@ -1354,7 +1354,6 @@ const isFakemonSpecies = (id: ID) => {
     return !!data && toID(data.baseSpecies) === 'typen';
 };
 
-	const data = BattlePokedex[id];
 
 // Remove our Fakemons from whatever normal Champions tier list
 // Showdown generated, so they stay illegal in every other format.
