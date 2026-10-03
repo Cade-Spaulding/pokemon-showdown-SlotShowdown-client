@@ -1294,8 +1294,25 @@ export class ModdedDex {
 	constructor(modid: ID) {
 		this.modid = modid;
 		let gen = parseInt(modid.charAt(3), 10);
-		if (this.modid === 'champions') gen = 9;
-		if ((modid !== 'champions' && !modid.startsWith('gen')) || !gen) throw new Error("Unsupported modid");
+// Reuse the Champions teambuilder lists, while allowing
+// the Fakemons mod to have its own legality overrides.
+const fakemonsDex = Dex.mod('championsfakemons');
+
+BattleTeambuilderTable['championsfakemons'] = {
+    ...BattleTeambuilderTable['champions'],
+    overrideTier: {
+        ...BattleTeambuilderTable['champions'].overrideTier,
+    },
+};
+
+for (const id in fakemonsDex.data.FormatsData) {
+    const species = fakemonsDex.species.get(id);
+    if (!species.exists) continue;
+
+    BattleTeambuilderTable[
+        'championsfakemons'
+    ].overrideTier[id] = species.tier;
+}
 		this.gen = gen;
 	}
 	text: ClientDexText = {
