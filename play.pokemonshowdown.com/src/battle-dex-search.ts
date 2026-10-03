@@ -1356,10 +1356,6 @@ const isFakemonSpecies = (id: ID) => {
 
 	const data = BattlePokedex[id];
 
-	// Include every Typen forme.
-	return !!data && toID(data.baseSpecies) === 'typen';
-};
-
 // Remove our Fakemons from whatever normal Champions tier list
 // Showdown generated, so they stay illegal in every other format.
 tierSet = tierSet.filter(([type, id]) => {
