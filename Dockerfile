@@ -38,7 +38,7 @@ assert.equal(species.isNonstandard, null, "Shirkuroo is nonstandard in the Fakem
 assert.ok(Object.values(species.abilities).includes("Light And Dark")); \
 assert.equal(dex.abilities.get("lightanddark").isNonstandard, null); \
 assert.equal(dex.moves.get("tailglow").isNonstandard, null); \
-assert.ok(dex.learnsets.get("shirkuroo").learnset?.tailglow?.some(s => s.startsWith("9"))); \
+assert.ok(dex.species.getLearnsetData("shirkuroo").learnset?.tailglow?.some(s => s.startsWith("9"))); \
 const validator = TeamValidator.get(format.id); \
 for (const ability of ["Light And Dark", "Triage"]) { \
   const set = {name: "Shirkuroo", species: "Shirkuroo", ability, moves: ["Tail Glow"], level: 50, nature: "Modest", teraType: species.types[0]}; \
