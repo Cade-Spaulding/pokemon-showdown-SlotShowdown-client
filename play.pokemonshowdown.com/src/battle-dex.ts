@@ -1298,29 +1298,28 @@ export class ModdedDex {
 	};
 	pokeballs: string[] | null = null;
 	constructor(modid: ID) {
-		this.modid = modid;
-		let gen = parseInt(modid.charAt(3), 10);
-// Reuse the Champions teambuilder lists, while allowing
-// the Fakemons mod to have its own legality overrides.
-const fakemonsDex = Dex.mod('championsfakemons');
+    this.modid = modid;
+    let gen = parseInt(modid.charAt(3), 10);
 
-BattleTeambuilderTable['championsfakemons'] = {
-    ...BattleTeambuilderTable['champions'],
-    overrideTier: {
-        ...BattleTeambuilderTable['champions'].overrideTier,
-    },
-};
+    if (
+        modid === 'champions' ||
+        modid === 'championsfakemons'
+    ) {
+        gen = 9;
+    }
 
-for (const id in fakemonsDex.data.FormatsData) {
-    const species = fakemonsDex.species.get(id);
-    if (!species.exists) continue;
+    if (
+        (
+            modid !== 'champions' &&
+            modid !== 'championsfakemons' &&
+            !modid.startsWith('gen')
+        ) || !gen
+    ) {
+        throw new Error("Unsupported modid");
+    }
 
-    BattleTeambuilderTable[
-        'championsfakemons'
-    ].overrideTier[id] = species.tier;
+    this.gen = gen;
 }
-		this.gen = gen;
-	}
 	text: ClientDexText = {
 		getLanguage: () => Dex.text.getLanguage(),
 		getBrowserLanguage: () => Dex.text.getBrowserLanguage(),
