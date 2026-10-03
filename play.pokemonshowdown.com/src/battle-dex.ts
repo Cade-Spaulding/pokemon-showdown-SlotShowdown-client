@@ -522,9 +522,15 @@ fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 		if (dex.gen === 8 && formatid.includes('bdsp')) {
 			dex = Dex.mod('gen8bdsp' as ID);
 		}
-		if (dex.gen === 9 && formatid.includes('champions')) {
-			dex = Dex.mod('champions' as ID);
-		}
+if (dex.gen === 9 && formatid.includes('champions')) {
+    const isFakemons =
+        toID(format) ===
+        'gen9championsvgc2026regmcfakemons';
+
+    dex = Dex.mod(
+        (isFakemons ? 'championsfakemons' : 'champions') as ID
+    );
+}
 		return dex;
 	}
 
