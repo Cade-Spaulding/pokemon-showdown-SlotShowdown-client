@@ -1307,7 +1307,25 @@ continue;		const learnset = ChampionsLearnsets[id].learnset;
 	//
 	// Mods
 	//
+// Reuse the Champions teambuilder lists, while allowing
+// the Fakemons mod to have its own legality overrides.
+const fakemonsDex = Dex.mod('championsfakemons');
 
+BattleTeambuilderTable['championsfakemons'] = {
+    ...BattleTeambuilderTable['champions'],
+    overrideTier: {
+        ...BattleTeambuilderTable['champions'].overrideTier,
+    },
+};
+
+for (const id in fakemonsDex.data.FormatsData) {
+    const species = fakemonsDex.species.get(id);
+    if (!species.exists) continue;
+
+    BattleTeambuilderTable[
+        'championsfakemons'
+    ].overrideTier[id] = species.tier;
+}
 	for (const mod of CLIENT_MODS) {
 		const modDex = Dex.mod(mod);
 		const modData = modDex.data;
