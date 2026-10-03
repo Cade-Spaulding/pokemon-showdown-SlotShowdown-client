@@ -24,8 +24,19 @@ RUN rm -rf caches/pokemon-showdown \
 
 # Make the build fail loudly if Struggly did not enter the generated client data.
 RUN grep -qi "struggly" play.pokemonshowdown.com/data/search-index.js \
-	|| (echo "ERROR: Struggly is missing from generated search-index.js" && exit 1)
-
+# Verify generated client species data.
+RUN node -e '\
+const assert = require("node:assert/strict"); \
+const path = "./play.pokemonshowdown.com/data/"; \
+const dex = require(path + "pokedex.js").BattlePokedex; \
+const index = require(path + "search-index.js").BattleSearchIndex; \
+const tables = require(path + "teambuilder-tables.js").BattleTeambuilderTable; \
+assert.equal(dex.struggly?.name, "Struggly"); \
+assert.equal(dex.shirkuroo?.name, "Shirkuroo"); \
+assert.ok(index.some(e => e[0] === "shirkuroo" && e[1] === "pokemon")); \
+console.log("Shirkuroo name:", dex.shirkuroo.name); \
+console.log("Champions tier:", tables.champions?.overrideTier?.shirkuroo); \
+'
 RUN cp play.pokemonshowdown.com/caches/index-old.html \
 	play.pokemonshowdown.com/index.html
 
