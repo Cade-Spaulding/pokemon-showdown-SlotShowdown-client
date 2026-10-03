@@ -1344,8 +1344,15 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 // [Gen 9 Champions] VGC 2026 Reg M-C + Fakemons
 
 const isFakemonSpecies = (id: ID) => {
-	if (id === 'struggly') return true;
-	if (id === 'typen') return true;
+    if (id === 'struggly') return true;
+    if (id === 'typen') return true;
+    if (id === 'shirkuroo') return true;
+
+    const data = BattlePokedex[id];
+
+    // Include every Typen forme.
+    return !!data && toID(data.baseSpecies) === 'typen';
+};
 
 	const data = BattlePokedex[id];
 
