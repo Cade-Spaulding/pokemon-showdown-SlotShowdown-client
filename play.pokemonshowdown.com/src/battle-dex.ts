@@ -931,6 +931,13 @@ if (dex.gen === 9 && formatid.includes('champions')) {
 		};
 		let name = species.spriteid;
 
+if (species.id.startsWith('typen')) {
+    spriteData.url = `${Dex.customResourcePrefix}fakemon-sprites/typen.png`;
+    spriteData.isFrontSprite = isFront;
+    spriteData.pixelated = false;
+    return spriteData;
+}
+
 if (species.isNonstandard === 'Custom') {
     spriteData.url = `${Dex.customResourcePrefix}fakemon-sprites/${species.id}.png`;
     spriteData.isFrontSprite = isFront;
@@ -1156,6 +1163,17 @@ if (species.isNonstandard === 'Custom') {
 				spriteid = species.spriteid || id;
 			}
 		}
+		
+if (species.id.startsWith('typen')) {
+    return {
+        spriteDir: 'fakemon-sprites',
+        spriteid: 'typen',
+        x: 0,
+        y: 0,
+        h: 96,
+    };
+}
+
 		if (species.exists === false) return { spriteDir: 'sprites/gen5', spriteid: '0', x: 10, y: 5, pixelated: true };
 		if (species.isNonstandard === 'Custom') {
 	return {
