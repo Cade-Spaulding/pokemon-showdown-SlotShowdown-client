@@ -1360,6 +1360,7 @@ const isFakemonSpecies = (id: ID) => {
     if (id === 'struggly') return true;
     if (id === 'typen') return true;
     if (id === 'shirkuroo') return true;
+    if (id === 'gamblimp') return true;
 
     const data = BattlePokedex[id];
 
