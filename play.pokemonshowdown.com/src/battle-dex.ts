@@ -523,13 +523,7 @@ fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 			dex = Dex.mod('gen8bdsp' as ID);
 		}
 if (dex.gen === 9 && formatid.includes('champions')) {
-    const isFakemons =
-        toID(format) ===
-        'gen9championsvgc2026regmcfakemons';
-
-    dex = Dex.mod(
-        (isFakemons ? 'championsfakemons' : 'champions') as ID
-    );
+	dex = Dex.mod('champions' as ID);
 }
 		return dex;
 	}
@@ -1319,22 +1313,18 @@ export class ModdedDex {
     this.modid = modid;
     let gen = parseInt(modid.charAt(3), 10);
 
-    if (
-        modid === 'champions' ||
-        modid === 'championsfakemons'
-    ) {
-        gen = 9;
-    }
+  if (modid === 'champions') {
+	gen = 9;
+}
 
-    if (
-        (
-            modid !== 'champions' &&
-            modid !== 'championsfakemons' &&
-            !modid.startsWith('gen')
-        ) || !gen
-    ) {
-        throw new Error("Unsupported modid");
-    }
+if (
+	(
+		modid !== 'champions' &&
+		!modid.startsWith('gen')
+	) || !gen
+) {
+	throw new Error("Unsupported modid");
+}
 
     this.gen = gen;
 }
