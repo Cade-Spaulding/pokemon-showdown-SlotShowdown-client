@@ -1360,6 +1360,8 @@ const isFakemonSpecies = (id: ID) => {
 	 if (id === 'sowln') return true;
     if (id === 'curzad') return true;
     if (id === 'klefzap') return true;
+	    if (id === 'vulclaw') return true;
+
     const data = BattlePokedex[id];
 
     // Include every Typen forme.
